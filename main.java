@@ -43,7 +43,7 @@ public class main
 
             for (int i = 0; i < data.size(); i++) {
                 List<String> row = data.get(i);
-                System.out.println("Row " + i + ": " + String.join(", ", row));
+              // System.out.println("Row " + i + ": " + String.join(", ", row));
             }
         }
         catch(FileNotFoundException e){
@@ -66,46 +66,62 @@ public class main
             System.out.println("Error: Could not write to file");
         }
         //code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
+            
+        
+        
+        Boolean processing = true;
+        
+        Scanner linescanner = new Scanner(System.in);
 
-        // Double totalCash; //making a variable for the total cash
-        // totalCash = 0D;
-        //for loop that goes through each line in customer data
-        //   for (int i = 0; i < customerData.size(); i++) {
-        //     List<String> row = customerData.get(i);
-        //     totalCash = totalCash + Double.parseDouble(row.get(4));
-        //    }
-        //    System.out.println("Total cash " + totalCash);
-        //
 
+        while (processing){
+            System.out.println("Main Menu: ");
+            System.out.println("1 - Create customer account");
+            System.out.println("2 - Close customer account");
+            System.out.println("3 - Get customer account balance");
+            System.out.println("4 - Deposit or withdraw from customer account");
+            System.out.println("5 - End of day");
+            
+            
+            if (linescanner.hasNext()){
+                char input = linescanner.next().charAt(0);
+                System.out.println("Input: " + input);
+                if (input == '1'){
+                    System.out.println("Create account");
+                }
+                if (input == '2'){
+                    System.out.println("Close account");
+                }
+                if (input == '3'){
+                    System.out.println("Get account");
+                    for (int i = 0; i < customerData.size(); i++) {
+                        System.out.println("Account " + i + ": " + new Account(customerData.get(i)).getName());
+                    }
+                    Scanner getAccount = new Scanner(System.in);
+                    if (getAccount.hasNext()){
+                        String accountselected = getAccount.nextLine();
+                        System.out.println("Balance: " + new Account(customerData.get(Integer.valueOf(accountselected))).getBalance());
+                    }
+                }
+                if (input == '4'){
+                    System.out.println("Deposit or withdraw");
+                    //if ("){
+                        
+                    }
+                    
+                }
+                if (input == '5'){
+                    System.out.println("End of day");
+                    processing = false;
+                    //need to save info
+                }
+            }
+        }
+        
+        
+        
     }
-}
+
+
 
             
-            
-            
-            
-// Scanner scanner = new Scanner(Paths.get("bankData.cvs")){
-//           while (scanner.hasNextLine()) {
-//         lines.add(scanner.nextLine());
-
-       
-//Scanner dataReader = new Scanner(myFile);
-
-//String csvFile = "bankData.csv";
-
-//int accountLength = dataReader.nextInt();
-//dataReader.nextLine();
-
-//String[] accounts = new String[accountLength];
-
-           
-//for (int i = 0; i < data.size(); i++) {
-//List<String> row = data.get(i);
-//  System.out.println("Row " + i + ": " + String.join(", ", row));
-//for(int i=0; i<accountLength; i++){
-//   accounts[i] = dataReader.nextLine();
-// }
-
-//for(int i=0; i<accountLength; i++){
-//   System.out.println(accounts[i]);
-//}
