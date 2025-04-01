@@ -113,10 +113,18 @@ public class main
                             newAccountData.add(accountNumber);
                             // System.out.println("Number: " + accountNumber);
                         }
-                        System.out.println("Account type (everyday, savings or current):");
+                        System.out.println("Account type (everyday (1) , savings (2) or current (3):");
                         if (createAccount.hasNextLine()){
                             String accountType = createAccount.nextLine();
-                            newAccountData.add(accountType);
+                            if (input == '1'){
+                                newAccountData.add(everydayAccount);
+                            }
+                            if (input == '2'){
+                                newAccountData.add(savingsAccount);
+                            }
+                            if (input == '3'){
+                                newAccountData.add(currentAccount);
+                            }
                             // System.out.println("Number: " + accountType);
                         }
                         System.out.println("Balance:");
