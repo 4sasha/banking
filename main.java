@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class main here.
  *
@@ -14,32 +13,31 @@ import java.util.List;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class main
 {
-
-    public static boolean isNumber(String str) {
+    
+    //if numebr is int turn into string
+    public static boolean isNumber(String string) {
         try {
-            Integer.parseInt(str);
+            Integer.parseInt(string);
             return true;
         } catch(NumberFormatException e){
             return false;  
-        }  
+        }
     }
 
+    
+    
     public static void main(String[] args)
     {
-
-        //ArrayList<Data> bankData = new ArrayList<>();
-        // File myFile = new File("bankData.csv");   
-
-        List<List<String>> data = new ArrayList<>();
 
         // Filenames
         String customerDataFilename = "customerData.csv";
         String bankDataFilename = "bankData.csv";
 
+        // Create lists
         List<List<String>> bankData = new ArrayList<>();
-
         //Reading CSV file with scanner  
         try (Scanner scanner = new Scanner(new File(bankDataFilename))){
 
@@ -50,13 +48,9 @@ public class main
                 //Puts data into a list, to store the data
                 List<String> lineData = Arrays.asList(values);
 
-                data.add(lineData);
+                bankData.add(lineData);
             }
 
-            for (int i = 0; i < data.size(); i++) {
-                List<String> row = data.get(i);
-                // System.out.println("Row " + i + ": " + String.join(", ", row));
-            }
         }
         catch(FileNotFoundException e){
             //if the file has an error
@@ -69,17 +63,15 @@ public class main
                 String line = scanner.nextLine();
                 String[] values = line.split(",");
                 List<String> lineData = Arrays.asList(values);
-                data.add(lineData);
+                customerData.add(lineData);
             }
-            for (int i = 0; i < data.size(); i++) {
-                List<String> row = data.get(i);
-                //System.out.println("Row " + i + ": " + String.join(", ", row));
-            }
+         
         } catch (FileNotFoundException e) {
             System.out.println("Error: Could not write to file");
         }
         //code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
 
+        // Main program 
         boolean processing = true;
         Scanner linescanner = new Scanner(System.in);
         while (processing){
@@ -88,137 +80,128 @@ public class main
             System.out.println("2 - Close customer account");
             System.out.println("3 - Get customer account balance");
             System.out.println("4 - Deposit or withdraw from customer account");
-            System.out.println("5 - End of day");
+            System.out.println("5 - Create new account type");
+            System.out.println("6 - End of day");
 
             if (linescanner.hasNextLine()){
-                char input = linescanner.next().charAt(0);
-                //System.out.println("Input: " + input);
-                System.out.println("input: " + input);
+                char input = linescanner.nextLine().charAt(0);
+                
                 if (input == '1'){
-                    while (input == '1'){
-                        System.out.println("Create new account...");
-
-                        Scanner createAccount = new Scanner(System.in);
-                        boolean notvalidaccount = true;
+                    System.out.println("Bank account types:");
+                    for (int i = 0; i < bankData.size(); i++) {
+                        System.out.println(bankData.get(i).get(0));
+                    }
+                    System.out.println("\nWhat account type do you want?");
+                    if (linescanner.hasNextLine()){
+                        String accountType = linescanner.nextLine();
                         for (int i = 0; i < bankData.size(); i++) {
-                            System.out.println("Account Type " + i + ": " + bankData.get(i).get(0));
-                        }
-                        System.out.println("Which account type would you like?");
-                        if (createAccount.hasNext()){
-                            String accountType = createAccount.nextLine();
-                            if (isNumber(accountType) && Integer.parseInt(accountType) < bankData.size()){
-
-                                List<String> newAccountData = new ArrayList<String>();
-
+                            // https://www.w3schools.com/java/ref_string_equals.asp got help from here for java string equals
+                            if (bankData.get(i).get(0).toUpperCase().equals(accountType.toUpperCase())) {
                                 // create a new account data array list
-
-                                while (notvalidaccount = true) {
-                                    System.out.println("Account Name:");
-                                    if (createAccount.hasNextLine()){
-                                        String accountName = createAccount.nextLine();
-                                        // System.out.println("Balance: " + accountName);
-                                        newAccountData.add(accountName);
-                                    }
-                                    System.out.println("Address of account:");
-                                    if (createAccount.hasNextLine()){
-                                        String address = createAccount.nextLine();
-                                        newAccountData.add(address);
-                                        // System.out.println("Address: " + address);
-                                    }
-                                    System.out.println("Account number:");
-                                    if (createAccount.hasNextLine()){
-                                        String accountNumber = createAccount.nextLine();
-                                        newAccountData.add(accountNumber);
-                                        // System.out.println("Number: " + accountNumber);
-                                    }
-                                    // System.out.println("Number: " + accountType);
-
-                                    System.out.println("Balance:");
-                                    if (createAccount.hasNextLine()){
-                                        String accountBalance = createAccount.nextLine();
-                                        newAccountData.add("$" + accountBalance);
-                                        // System.out.println("Balance: " + accountBalance);
-                                    }
-                                    new Account(newAccountData).print();
-                                    System.out.println("Create new account? (Y / N):\n\n" + String.join(", ", newAccountData));
-                                    if (createAccount.hasNextLine()){
-                                        char check = createAccount.nextLine().toUpperCase().charAt(0);
-                                        if (check == 'Y'){
-                                            notvalidaccount = false;
-                                            System.out.println("account successfully made!");
-
-                                            //go back to main menu
-                                        } else {
-                                            notvalidaccount = true;
-                                        }
-                                    }
+                                List<String> newAccountData = new ArrayList<String>();
+    
+                                System.out.println("Account Name:");
+                                if (linescanner.hasNextLine()){
+                                    String accountName = linescanner.nextLine();
+                                    newAccountData.add(accountName);
                                 }
-                            }
-                        }
-                    }
-
-                    if (input == '2'){
-                        System.out.println("Close account");
-                        System.out.println("What account do you want to close?");
-                        
-
-                    }
-                    if (input == '3'){
-                        System.out.println("Get current account balance?");
-                        for (int i = 0; i < customerData.size(); i++) {
-                            System.out.println("Account " + i + ": " + new Account(customerData.get(i)).getName());
-                        }
-                        Scanner getAccount = new Scanner(System.in);
-                        if (getAccount.hasNext()){
-                            String accountselected = getAccount.nextLine();
-                            System.out.println("Balance: " + new Account(customerData.get(Integer.valueOf(accountselected))).getBalance());
-                            //help from : https://www.geeksforgeeks.org/integer-valueof-method-in-java/
-                        }
-                    }
-                    if (input == '4'){
-                        System.out.println("deposit(1) or withdraw?(2)");
-                        if (linescanner.hasNextLine()){
-                            char input2 = linescanner.next().charAt(0);
-                            if (input2 == '1'){
-
-                                System.out.println("how much do u want to deposit?");
+                                System.out.println("Address of account:");
+                                if (linescanner.hasNextLine()){
+                                    String address = linescanner.nextLine();
+                                    newAccountData.add(address);
+                                }
+                                System.out.println("Account number:");
+                                if (linescanner.hasNextLine()){
+                                    String accountNumber = linescanner.nextLine();
+                                    newAccountData.add(accountNumber);
+                                }
+    
+                                // Add account type
+                                newAccountData.add(bankData.get(i).get(0));
                                 
-                            } else if (input2 == '2') {
-                                System.out.println("how much do u want to withdraw?");
-
-                            }
-                            if (input == '5'){
-
-                                System.out.println("End of day!");
-                                // making a delete backup file if it exists
-                                File backupfile = new File(customerDataFilename + ".backup");
-                                if (backupfile.exists()){
-                                    backupfile.delete();
+                                System.out.println("Balance:");
+                                if (linescanner.hasNextLine()){
+                                    String accountBalance = linescanner.nextLine();
+                                    newAccountData.add(accountBalance);
                                 }
-                                // rename current customer data file to .backup
-                                if(new File(customerDataFilename).renameTo(backupfile)){
-                                    try{
-                                        FileWriter writeCustomerData = new FileWriter(customerDataFilename);
-                                        for (int i = 0; i < customerData.size(); i++) {
-                                            List<String> row = customerData.get(i);
-                                            writeCustomerData.write(String.join(", ", row) + "\n");
-                                        }                            
-                                    } catch (IOException e) {
-                                        System.out.println("error when writing customer data");
+                                new Account(newAccountData).print();
+                                System.out.println("Create new account? (Y / N):");
+
+                                if (linescanner.hasNextLine()){
+                                    char check = linescanner.nextLine().toUpperCase().charAt(0);
+                                    if (check == 'Y'){
+                                        customerData.add(newAccountData);
+                                        System.out.println("account successfully made!");
                                     }
-
-                                    System.out.println("customer data saved");
-                                } else {
-                                    System.out.println("customer data was not backed up");
                                 }
-                                processing = false;
                             }
                         }
                     }
+                }
+                if (input == '2'){
+                    System.out.println("Close account");
+                    System.out.println("What account do you want to close?");
+                    for (int i = 0; i < customerData.size(); i++) {
+                        System.out.println("Account " + i + ": " + new Account(customerData.get(i)).getName());
+                    }
+                    if (linescanner.hasNext()){
+                        List<String> accountToClose = new ArrayList<String>();
+                        String accountselected = linescanner.nextLine();
+                        int accountToRemove = Integer.valueOf(accountselected);
+                        if (accountToRemove < customerData.size()){
+                            accountToClose = customerData.get(Integer.valueOf(accountselected));
+                        }
+                        customerData.remove(accountToClose);
+                    }                    
+
+                }
+                if (input == '3'){
+                    System.out.println("Get current account balance?");
+                    for (int i = 0; i < customerData.size(); i++) {
+                        System.out.println("Account " + (i + 1) + ": " + new Account(customerData.get(i)).getName());
+                    }
+                    Scanner getAccount = new Scanner(System.in);
+                    if (getAccount.hasNext()){
+                        String accountselected = getAccount.nextLine();
+                        System.out.println("Balance: $" + new Account(customerData.get(Integer.valueOf(accountselected))).getBalance());
+                        //help from : https://www.geeksforgeeks.org/integer-valueof-method-in-java/
+                    }
+                }
+                if (input == '4'){
+                    System.out.println("deposit(d) or withdraw?(w)");
+                    if (linescanner.hasNextLine()){
+                        if (input == 'd'){
+                            System.out.println("how much do u want to deposit?");
+                            String deposit =  linescanner.nextLine();
+                        } else if (input == 'w') {
+                            System.out.println("how much do u want to withdraw?");
+                            String withdraw =  linescanner.nextLine();
+                        }
+                    }
+                }
+                if (input == '6'){
+                    System.out.println("End of day!");
+                    try{
+                        FileWriter writeCustomerData = new FileWriter(customerDataFilename);
+                        for (int i = 0; i < customerData.size(); i++) {
+                            List<String> row = customerData.get(i);
+                            writeCustomerData.write(String.join(",", row) + "\n");
+                            System.out.println("Customer Data: " + String.join(",", row));
+                        }
+                        writeCustomerData.close();
+                    } catch (IOException e) {
+                        System.out.println("error when writing customer data");
+                    }
+                    System.out.println("customer data saved");
+                    processing = false;
                 }
             }
         }
     }
 }
+        
+
+
+
 
             

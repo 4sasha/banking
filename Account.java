@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class account here.
  *
@@ -6,9 +5,8 @@
  * @version (a version number or a date)
  */
 
+
 import java.util.List;
-
-
 public class Account {
 
     private String name;
@@ -78,4 +76,5 @@ public class Account {
     }
 
 }
+
 
