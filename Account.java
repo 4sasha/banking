@@ -16,6 +16,7 @@ public class Account {
     private String accountNumber;
     private String accountType;
     private String accountBalance;
+    
     public Account(String name, String address, String accountNumber, String accountType, String accountBalance) {
         this.name = name;
         this.address = address;
@@ -31,13 +32,15 @@ public class Account {
         this.accountNumber = lineData.get(2);
         this.accountType = lineData.get(3);
         this.accountBalance = lineData.get(4);
-        accountType();
+      //  accountType();
     }
 
 
     public String getName() {
         return this.name;
     }
+    
+    
     //private String everydayAccount;
     //private String savingsAccount;
     //private String currentAccount;
@@ -64,5 +67,15 @@ public class Account {
     public Double getBalance() {
         return Double.parseDouble(this.accountBalance);
     }
+    
+    public void print() {
+        System.out.println("Account information");
+        System.out.println("Account name            : " + this.name);
+        System.out.println("Account address         : " + this.address);
+        System.out.println("Account account number  : " + this.accountNumber);
+        System.out.println("Account account type    : " + this.accountType);
+        System.out.println("Account account balance : " + this.accountBalance);
+    }
+
 }
 
