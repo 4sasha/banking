@@ -36,9 +36,10 @@ public class main
         String customerDataFilename = "customerData.csv";
         String bankDataFilename = "bankData.csv";
 
-        // Create lists
+        // Create list for bank data csv 
         List<List<String>> bankData = new ArrayList<>();
-        //Reading CSV file with scanner  
+        //Reading CSV file with scanner 
+        // code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
         try (Scanner scanner = new Scanner(new File(bankDataFilename))){
 
             while (scanner.hasNextLine()) {
@@ -72,6 +73,7 @@ public class main
         //code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
 
         // Main program 
+        System.out.println("welcome to the sasha bank!");
         boolean processing = true;
         Scanner linescanner = new Scanner(System.in);
         while (processing){
@@ -102,6 +104,7 @@ public class main
     
                                 System.out.println("Account Name:");
                                 if (linescanner.hasNextLine()){
+                                    //the next line turns into an array called account name and is linked back to account class
                                     String accountName = linescanner.nextLine();
                                     newAccountData.add(accountName);
                                 }
@@ -130,7 +133,7 @@ public class main
                                 if (linescanner.hasNextLine()){
                                     char check = linescanner.nextLine().toUpperCase().charAt(0);
                                     if (check == 'Y'){
-                                        customerData.add(newAccountData);
+                                        customerData.add(newAccountData); //gets all the data
                                         System.out.println("account successfully made!");
                                     }
                                 }
@@ -141,12 +144,16 @@ public class main
                 if (input == '2'){
                     System.out.println("Close account");
                     System.out.println("What account do you want to close?");
+                    // for loop that loops through cvs customer file and prints all of them so user can pick which one they want
                     for (int i = 0; i < customerData.size(); i++) {
                         System.out.println("Account " + i + ": " + new Account(customerData.get(i)).getName());
                     }
+                    
                     if (linescanner.hasNext()){
                         List<String> accountToClose = new ArrayList<String>();
+                        //making an array list of a string bcuz its text thats being inputted, and making the 
                         String accountselected = linescanner.nextLine();
+                
                         int accountToRemove = Integer.valueOf(accountselected);
                         if (accountToRemove < customerData.size()){
                             accountToClose = customerData.get(Integer.valueOf(accountselected));
@@ -157,9 +164,11 @@ public class main
                 }
                 if (input == '3'){
                     System.out.println("Get current account balance?");
+                    //prints same for loop thats printed fo r closing account, to show the diff accounts
                     for (int i = 0; i < customerData.size(); i++) {
                         System.out.println("Account " + (i + 1) + ": " + new Account(customerData.get(i)).getName());
                     }
+                    //scanner for keyboard input
                     Scanner getAccount = new Scanner(System.in);
                     if (getAccount.hasNext()){
                         String accountselected = getAccount.nextLine();
@@ -169,6 +178,7 @@ public class main
                 }
                 if (input == '4'){
                     System.out.println("deposit(d) or withdraw?(w)");
+                     Scanner depositscanner = new Scanner(System.in);
                     if (linescanner.hasNextLine()){
                         if (input == 'd'){
                             System.out.println("how much do u want to deposit?");

@@ -67,6 +67,7 @@ public class Account {
     }
     
     public void print() {
+        //when user wants to print the acc info instead of having to print all of it in main , made life easier by having it in account file
         System.out.println("Account information");
         System.out.println("Account name            : " + this.name);
         System.out.println("Account address         : " + this.address);
