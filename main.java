@@ -4,6 +4,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
+//first import all the classes/packages
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -18,12 +19,12 @@ public class main
 {
     
     //if numebr is int turn into string
-    public static boolean isNumber(String string) {
-        try {
-            Integer.parseInt(string);
-            return true;
-        } catch(NumberFormatException e){
-            return false;  
+    public static boolean isNumber(String string) { //boolean for true/false - if there is a number
+        try { //try/catch statement, for later in code - used 
+            Integer.parseInt(string); //turns the number that there is into a string
+            return true; //return back to code
+        } catch(NumberFormatException e){ //if the user response isnt a number
+            return false;  //return as false so 
         }
     }
 
@@ -36,14 +37,14 @@ public class main
         String customerDataFilename = "customerData.csv";
         String bankDataFilename = "bankData.csv";
 
-        // Create list for bank data csv 
+        // Create array list for bank data csv file data
         List<List<String>> bankData = new ArrayList<>();
         //Reading CSV file with scanner 
         // code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
-        try (Scanner scanner = new Scanner(new File(bankDataFilename))){
+        try (Scanner scanner = new Scanner(new File(bankDataFilename))){ //
 
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
+            while (scanner.hasNextLine()) { 
+                String line = scanner.nextLine(); 
                 String[] values = line.split(",");
 
                 //Puts data into a list, to store the data
@@ -58,7 +59,7 @@ public class main
             System.out.println("Error: Could not write to file");
         }
 
-        List<List<String>> customerData = new ArrayList<>();
+        List<List<String>> customerData = new ArrayList<>(); //doing the same that was done for bank data file
         try (Scanner scanner = new Scanner(new File(customerDataFilename))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -74,9 +75,9 @@ public class main
 
         // Main program 
         System.out.println("welcome to the sasha bank!");
-        boolean processing = true;
-        Scanner linescanner = new Scanner(System.in);
-        while (processing){
+        boolean processing = true; //making a boolean ( true / false ) statement to start and stop code
+        Scanner linescanner = new Scanner(System.in); // making scanner array list to store user input, to use throughout code 
+        while (processing){ 
             System.out.println("Main Menu: ");
             System.out.println("1 - Create customer account");
             System.out.println("2 - Close customer account");
@@ -85,26 +86,25 @@ public class main
             System.out.println("5 - Create new account type");
             System.out.println("6 - End of day");
 
-            if (linescanner.hasNextLine()){
-                char input = linescanner.nextLine().charAt(0);
+            if (linescanner.hasNextLine()){ // gets user input based off what user inputs
+                char input = linescanner.nextLine().charAt(0); //
                 
                 if (input == '1'){
                     System.out.println("Bank account types:");
-                    for (int i = 0; i < bankData.size(); i++) {
-                        System.out.println(bankData.get(i).get(0));
+                    for (int i = 0; i < bankData.size(); i++) { //making a for loop that goes through the bank data cvs and prints it out
+                        System.out.println(bankData.get(i).get(0)); //get(i) because it goes through each row of bank data cvs vertically and get(0) to go through each row horizontally
                     }
-                    System.out.println("\nWhat account type do you want?");
+                    System.out.println("\nWhat account type do you want?"); // the \n is putting a blank line between last line and this line
                     if (linescanner.hasNextLine()){
-                        String accountType = linescanner.nextLine();
-                        for (int i = 0; i < bankData.size(); i++) {
-                            // https://www.w3schools.com/java/ref_string_equals.asp got help from here for java string equals
-                            if (bankData.get(i).get(0).toUpperCase().equals(accountType.toUpperCase())) {
-                                // create a new account data array list
-                                List<String> newAccountData = new ArrayList<String>();
+                        String accountType = linescanner.nextLine(); // 
+                        for (int i = 0; i < bankData.size(); i++) {  //
+                            if (bankData.get(i).get(0).toUpperCase().equals(accountType.toUpperCase())) { // https://www.w3schools.com/java/ref_string_equals.asp got help from here for java string equals
+                                //line above is
+                                List<String> newAccountData = new ArrayList<String>(); // create a new account data array list to store data from user input
     
                                 System.out.println("Account Name:");
                                 if (linescanner.hasNextLine()){
-                                    //the next line turns into an array called account name and is linked back to account class
+                                    //the next line turns into an array called account name and is linked to account class
                                     String accountName = linescanner.nextLine();
                                     newAccountData.add(accountName);
                                 }
@@ -192,18 +192,18 @@ public class main
                 if (input == '6'){
                     System.out.println("End of day!");
                     try{
-                        FileWriter writeCustomerData = new FileWriter(customerDataFilename);
-                        for (int i = 0; i < customerData.size(); i++) {
+                        FileWriter writeCustomerData = new FileWriter(customerDataFilename); //creating array list to store the 
+                        for (int i = 0; i < customerData.size(); i++) { //for loop that goes through the updated customer data to save it
                             List<String> row = customerData.get(i);
                             writeCustomerData.write(String.join(",", row) + "\n");
                             System.out.println("Customer Data: " + String.join(",", row));
                         }
-                        writeCustomerData.close();
+                        writeCustomerData.close(); //close 
                     } catch (IOException e) {
                         System.out.println("error when writing customer data");
                     }
                     System.out.println("customer data saved");
-                    processing = false;
+                    processing = false; //stops the code
                 }
             }
         }
