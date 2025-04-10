@@ -212,7 +212,7 @@ public class main
                         String accountselected = linescanner.nextLine();
                         try{
                             int accountToRemove = Integer.valueOf(accountselected)-1; //if the account to remove = account in cvs file (-1 bcuz cvs files start at 1) add it to int
-                             if (accountToRemove > 0 && accountToRemove < customerData.size()){ //boundary checking to see if you have entered a valid account number
+                             if (accountToRemove >= 0 && accountToRemove < customerData.size()){ //boundary checking to see if you have entered a valid account number
                                 accountToClose = customerData.get(accountToRemove); //if the account to close is correct then get entire account line from list
                                 customerData.remove(accountToClose); //then remove account
                                 System.out.println("account successfully closed!");
@@ -236,7 +236,7 @@ public class main
                         try{
                             String accountselected = linescanner.nextLine();
                             int accountselectedInt = Integer.valueOf(accountselected)-1; // making an int for the account selected
-                            if (accountselectedInt > 0 && accountselectedInt < customerData.size()) { //boundary testing - same as before
+                            if (accountselectedInt >= 0 && accountselectedInt < customerData.size()) { //boundary testing - same as before
                                 System.out.println("Balance: $" + new Account(customerData.get(accountselectedInt)).getBalance()); //print out balance 
                             } else {
                                System.out.println("invalid number");
@@ -261,7 +261,7 @@ public class main
                         // convert the account number string into a int
                         try {
                             int accountselected = Integer.valueOf(accountselectedstr)-1;
-                            if (accountselected > 0 && accountselected < customerData.size()) { //boundary testing - same as before
+                            if (accountselected >= 0 && accountselected < customerData.size()) { //boundary testing - same as before
                                 
 
                                 // Create an account object with the current account selected
@@ -273,7 +273,6 @@ public class main
                                 if (linescanner.hasNextLine()){
                                     // get a single character entered, make it upper case and take the first character
                                     char depositorwithdraw = linescanner.nextLine().toUpperCase().charAt(0);
-    
     
                                     if (depositorwithdraw == 'D'){
                                         System.out.println("how much do u want to deposit?");
@@ -371,10 +370,3 @@ public class main
         }
     }
 }
-       
-
-
-
-
-
-            
