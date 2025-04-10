@@ -1,20 +1,26 @@
+
 /**
- * Write a description of class account here.
+ * Account class to create an account object with name, address, account type and balance.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author (Sasha Lambrechtsen)
+ * @version (5 - 6 April 2025)
  */
 
 
 import java.util.List;
+
+
+
+
 public class Account {
+
 
     private String name;
     private String address;
     private String accountNumber;
     private String accountType;
     private String accountBalance;
-    
+   
     public Account(String name, String address, String accountNumber, String accountType, String accountBalance) {
         this.name = name;
         this.address = address;
@@ -22,6 +28,8 @@ public class Account {
         this.accountType = accountType;
         this.accountBalance = accountBalance;
     }
+
+
 
 
     public Account(List<String> lineData) {
@@ -34,11 +42,13 @@ public class Account {
     }
 
 
+
+
     public String getName() {
         return this.name;
     }
-    
-    
+   
+   
     //private String everydayAccount;
     //private String savingsAccount;
     //private String currentAccount;
@@ -47,6 +57,7 @@ public class Account {
    //     this.savingsAccount = savingsAccount;
      //   this.currentAccount = currentAccount;
    // }
+
 
    // public accountType(List<String> lineData) {
      //   this.everydayAccount = lineData.get(0);
@@ -59,16 +70,19 @@ public class Account {
        // else if(this.accountType.equals("Current")){this.value="Current";}
        // System.out.println(this.value);
     //}
-    
-    
-    
+   
+   
+   
     public Double getBalance() {
         return Double.parseDouble(this.accountBalance);
     }
-    
+   
+    public String getAccountType() {
+        return this.accountType;
+    }
+   
     public void print() {
-        //when user wants to print the acc info instead of having to print all of it in main , made life easier by having it in account file
-        System.out.println("Account information");
+        System.out.println("\nAccount information");
         System.out.println("Account name            : " + this.name);
         System.out.println("Account address         : " + this.address);
         System.out.println("Account account number  : " + this.accountNumber);
@@ -76,6 +90,13 @@ public class Account {
         System.out.println("Account account balance : " + this.accountBalance);
     }
 
+
 }
+
+
+
+
+
+
 
 
