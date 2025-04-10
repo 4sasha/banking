@@ -235,7 +235,7 @@ public class main
                     if (linescanner.hasNext()){
                         try{
                             String accountselected = linescanner.nextLine();
-                            int accountselectedInt = Integer.valueOf(accountselected); // making an int for the account selected
+                            int accountselectedInt = Integer.valueOf(accountselected)-1; // making an int for the account selected
                             if (accountselectedInt > 0 && accountselectedInt < customerData.size()) { //boundary testing - same as before
                                 System.out.println("Balance: $" + new Account(customerData.get(accountselectedInt)).getBalance()); //print out balance 
                             } else {
