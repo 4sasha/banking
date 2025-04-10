@@ -1,26 +1,24 @@
 
 /**
- * Account class to create an account object with name, address, account type and balance.
+ 
  *
- * @author (Sasha Lambrechtsen)
- * @version (5 - 6 April 2025)
+sasha lambrechtsen banking game - account class.1.!>!>!!>!>!>!>! :
+ *
  */
 
 
 import java.util.List;
 
-
-
-
 public class Account {
 
-
+    //defining private variables for account
     private String name;
     private String address;
     private String accountNumber;
     private String accountType;
-    private String accountBalance;
+    private String accountBalance; 
    
+    //creating account class that links into private variables - can call from main
     public Account(String name, String address, String accountNumber, String accountType, String accountBalance) {
         this.name = name;
         this.address = address;
@@ -28,57 +26,26 @@ public class Account {
         this.accountType = accountType;
         this.accountBalance = accountBalance;
     }
-
-
-
-
+    
+    //or u can create account class using a string list and then getting each column from the list
     public Account(List<String> lineData) {
         this.name = lineData.get(0);
         this.address = lineData.get(1);
         this.accountNumber = lineData.get(2);
         this.accountType = lineData.get(3);
         this.accountBalance = lineData.get(4);
-      //  accountType();
     }
-
-
-
 
     public String getName() {
-        return this.name;
+        return this.name;//if calling getname in main class then return the name
     }
    
-   
-    //private String everydayAccount;
-    //private String savingsAccount;
-    //private String currentAccount;
-   // public String accountType(String everydayAccount, String savingsAccount, String currentAccount){
-    //    this.everydayAccount = everydayAccount;
-   //     this.savingsAccount = savingsAccount;
-     //   this.currentAccount = currentAccount;
-   // }
-
-
-   // public accountType(List<String> lineData) {
-     //   this.everydayAccount = lineData.get(0);
-       // this.savingsAccount = lineData.get(1);
-   //     this.currentAccount = lineData.get(3);
-   // }
-   // private void accountType(){
-     //   if(this.accountType.equals("Everyday")){this.value="Everyday";}
-      //  else if(this.accountType.equals("Savings")){this.value="Savings";}
-       // else if(this.accountType.equals("Current")){this.value="Current";}
-       // System.out.println(this.value);
-    //}
-   
-   
-   
     public Double getBalance() {
-        return Double.parseDouble(this.accountBalance);
+        return Double.parseDouble(this.accountBalance); // first converting from string to double, then doing same with name except account balance - a double because it is money
     }
    
     public String getAccountType() {
-        return this.accountType;
+        return this.accountType; //same as name
     }
    
     public void print() {
@@ -87,8 +54,8 @@ public class Account {
         System.out.println("Account address         : " + this.address);
         System.out.println("Account account number  : " + this.accountNumber);
         System.out.println("Account account type    : " + this.accountType);
-        System.out.println("Account account balance : " + this.accountBalance);
-    }
+        System.out.println("Account balance         : " + this.accountBalance);
+    } //print out account data when calling print
 
 
 }

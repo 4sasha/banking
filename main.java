@@ -1,8 +1,9 @@
 /**
 
 /**
- *banking program
+ *sasha lambrechtsen banking program - main class!?!?!?!?!?!!!!!.>!!>>1. :-)
  */
+//importing all the extra packages for java
 import java.io.File;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -15,23 +16,18 @@ import java.io.IOException;
 
 public class main
 {
-
-
-    public static boolean isNumber(String string) {
-        try {
-            Integer.parseInt(string);
-            return true;
+    public static boolean isNumber(String string) { //name of function is called isnumber and returns a boolean (a true or false value) the object passed in is a string and calling variable name string(creative)
+        try { // try catch so then if it goes wrong then it gets caught by catch function instead of pooping itself
+            Integer.parseInt(string); //checks if the string is an int
+            return true; // if it gets to this point then the string contains a number that can be converted into an int 
         } catch(NumberFormatException e){
-            return false;  
+            return false;  //otherwise string is not an int
         }
     }
-
-
-   
    
     public static void main(String[] args)
     {
-
+        System.out.println("sasha bank!");
 
         // Filenames
         String customerDataFilename = "customerData.csv";
@@ -43,31 +39,26 @@ public class main
         List<List<String>> bankData = new ArrayList<>();
 
 
-        // Read bank data file using scanner - code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
-        // Check the file exists and can be opened
+        // read bank data file using scanner - code help from : https://labex.io/tutorials/java-reading-a-csv-file-117982
+        // check the file exists and can be opened
         try (Scanner scanner = new Scanner(new File(bankDataFilename))){
            
-            // Loop through the file line by line, until it doesn't have any more lines.
+            // loop through the file line by line, until it doesn't have any more lines.
             while (scanner.hasNextLine()) {
-                // Read the line into a string
+                // read the line into a string
                 String line = scanner.nextLine();
-                // Split the string into an Array with the comma as the delimiter
+                // split the string into an array with the comma
                 String[] values = line.split(",");
 
 
-                //Convert the array into a single dimentional list.
+                //convert  array into a single array list
                 List<String> lineData = Arrays.asList(values);
 
 
-                // Add the bank data line as a list and add it to the bank data two dimentational list for each line
+                // add the bank data line as a list and add it to the bank data two dimentational list for each line
                 bankData.add(lineData);
             }
 
-
-            //for (int i = 0; i < data.size(); i++) {
-            //    List<String> row = data.get(i);
-                // System.out.println("Row " + i + ": " + String.join(", ", row));
-            //}
         }
         catch(FileNotFoundException e){
             //if the file has an error
@@ -89,11 +80,11 @@ public class main
         }
 
 
-        // Main program loop
-        // Create a boolean
+        // mmmmmmmmain program loop
+        // Creating a boolean true or false so it keeps looping thru the main menu unless u go to the end of day
         boolean processing = true;
        
-        // Read a line of input scanner
+        // making a scanner to read a line of input
         Scanner linescanner = new Scanner(System.in);
         while (processing){
             System.out.println("Main Menu: ");
@@ -101,33 +92,33 @@ public class main
             System.out.println("2 - Close customer account");
             System.out.println("3 - Get customer account balance");
             System.out.println("4 - Deposit or withdraw from customer account");
-            System.out.println("5 - Create new account type");
-            System.out.println("6 - End of day");
+            System.out.println("5 - End of day");
 
 
             // wait for the next line to be input
             if (linescanner.hasNextLine()){
                 // get line first character
                 char input = linescanner.nextLine().charAt(0);
+    
                
                 if (input == '1'){
-                    // Print out the bank accounts types
+                    // print out the bank accounts types
                     System.out.println("Bank account types:");
                     for (int i = 0; i < bankData.size(); i++) {
                         System.out.println(bankData.get(i).get(0));
                     }
                    
-                    // Ask about what account you want
+                    // ask about what account you want
                     System.out.println("\nWhat account type do you want?");
                     if (linescanner.hasNextLine()){
                         String accountType = linescanner.nextLine();
                        
-                        // Loop through all the different bank types to check, if none of them are found print an error
+                        // loop through all the different bank types to check, if none of them are found print an error
                         boolean accountnotfound = true;
                         for (int accounttype = 0; accounttype < bankData.size(); accounttype++) {
-                            // https://www.w3schools.com/java/ref_string_equals.asp java string equals
+                            // https://www.w3schools.com/java/ref_string_equals.asp java string equals help!
                             if (bankData.get(accounttype).get(0).toUpperCase().equals(accountType.toUpperCase())) {
-                                // account found, so set accountnotfound to false
+                                // if there is an account found,  set accountnotfound to false
                                 accountnotfound = false;
                                
                                 // create a new account data line array list
@@ -153,7 +144,7 @@ public class main
                                     newAccountData.add(accountNumber);
                                 }
    
-                                // Add account type
+                                // add account type
                                 newAccountData.add(bankData.get(accounttype).get(0));
                                
                                 System.out.println("Balance:");
@@ -161,18 +152,18 @@ public class main
                                     String accountBalance = linescanner.nextLine();
 
 
-                                    // Check the account balance is a number
+                                    // check the account balance is a number
                                     try {
-                                        // Convert the account balance string into an integer, if it fails then because it is in a try, catch, the catch will be used
-                                        int accountBalanceInt = Integer.valueOf(accountBalance);
-                                        // Get the account type minimum value from bank data
-                                        int accountTypeMin = Integer.valueOf(bankData.get(accounttype).get(1));
-                                        // Check the balance entered is more than the account type minimum
+                                        // convert the account balance string into an integer, if it fails then because it is in a try, catch, the catch will be used
+                                        Double accountBalanceInt = Double.valueOf(accountBalance);
+                                        // get the account type minimum value from bank data
+                                        Double accountTypeMin = Double.valueOf(bankData.get(accounttype).get(1));
+                                        // check the balance entered is more than the account type minimum
                                         if ( accountBalanceInt > accountTypeMin) {
-                                            // If it is ok then add it into the list
+                                            // if it is ok then add it into the list
                                             newAccountData.add(accountBalance);
                                         } else {
-                                            // if it is under the value then display an error and set the balance to zero.
+                                            // if it is under the value then display an error and set balance to zero
                                             System.out.println("invalid balance for " + bankData.get(accounttype).get(0) + " needs to be more than " + bankData.get(accounttype).get(1));
                                             newAccountData.add("0");
                                         }
@@ -184,7 +175,7 @@ public class main
 
                                 }
                                
-                                // print out the full account to create to check everything is correct before creating the new account.
+                                // print out the full account to create to check everything is right before creating the new account
                                 new Account(newAccountData).print();
 
 
@@ -204,7 +195,7 @@ public class main
                             }
                         }
                         if (accountnotfound) {
-                            // If the account hasn't been found then we need to say invalid account type specified
+                            // if the account hasn't been found then need to say invalid account type 
                             System.out.println("invalid account type");
                         }
                     }
@@ -212,17 +203,26 @@ public class main
                 if (input == '2'){
                     System.out.println("Close account");
                     System.out.println("What account do you want to close?");
+                    //looping through accounts again
                     for (int i = 0; i < customerData.size(); i++) {
                         System.out.println("Account " + (i+1) + ": " + new Account(customerData.get(i)).getName());
                     }
                     if (linescanner.hasNext()){
-                        List<String> accountToClose = new ArrayList<String>();
+                        List<String> accountToClose = new ArrayList<String>(); //making array list for accounttoclose
                         String accountselected = linescanner.nextLine();
-                        int accountToRemove = Integer.valueOf(accountselected)-1;
-                        if (accountToRemove < customerData.size()){
-                            accountToClose = customerData.get(Integer.valueOf(accountselected));
+                        try{
+                            int accountToRemove = Integer.valueOf(accountselected)-1; //if the account to remove = account in cvs file (-1 bcuz cvs files start at 1) add it to int
+                             if (accountToRemove > 0 && accountToRemove < customerData.size()){ //boundary checking to see if you have entered a valid account number
+                                accountToClose = customerData.get(accountToRemove); //if the account to close is correct then get entire account line from list
+                                customerData.remove(accountToClose); //then remove account
+                                System.out.println("account successfully closed!");
+                            } else{
+                                System.out.println("invalid account");
+                            }
+                        } catch (NumberFormatException e) {
+                        System.out.println("invalid account entered");
+                                    
                         }
-                        customerData.remove(accountToClose);
                     }                    
 
 
@@ -233,9 +233,20 @@ public class main
                         System.out.println("Account " + (i+1) + ": " + new Account(customerData.get(i)).getName());
                     }
                     if (linescanner.hasNext()){
-                        String accountselected = linescanner.nextLine();
-                        System.out.println("Balance: $" + new Account(customerData.get(Integer.valueOf(accountselected)-1)).getBalance());
+                        try{
+                            String accountselected = linescanner.nextLine();
+                            int accountselectedInt = Integer.valueOf(accountselected); // making an int for the account selected
+                            if (accountselectedInt > 0 && accountselectedInt < customerData.size()) { //boundary testing - same as before
+                                System.out.println("Balance: $" + new Account(customerData.get(accountselectedInt)).getBalance()); //print out balance 
+                            } else {
+                               System.out.println("invalid number");
+                                
+                            }
                         //help from : https://www.geeksforgeeks.org/integer-valueof-method-in-java/
+                            
+                        } catch (NumberFormatException e ){ //if its not a number
+                            System.out.println("please enter a singular number, aka, 1, for account 1");
+                        }
                     }
                 }
                 if (input == '4'){
@@ -250,81 +261,88 @@ public class main
                         // convert the account number string into a int
                         try {
                             int accountselected = Integer.valueOf(accountselectedstr)-1;
-                            // Create an account object with the current account selected
-                            Account currentAccount = new Account(customerData.get(Integer.valueOf(accountselected)));
-                            // print the current account balance
-                            System.out.println("Current balance: $" + currentAccount.getBalance());
-                            // Doing a deposit or withdraw
-                            System.out.println("(D)eposit or (W)ithdraw?");
-                            if (linescanner.hasNextLine()){
-                                // get a single character entered, make it upper case and take the first character
-                                char depositorwithdraw = linescanner.nextLine().toUpperCase().charAt(0);
+                            if (accountselected > 0 && accountselected < customerData.size()) { //boundary testing - same as before
+                                
 
-
-                                if (depositorwithdraw == 'D'){
-                                    System.out.println("how much do u want to deposit?");
-                                    if (linescanner.hasNextLine()){
-                                        String depositstring = linescanner.nextLine();
-                                        try {
-                                            // Convert the deposit number an integer, if it fails then because it is in a try, catch, the catch will be used
-                                            Double deposit = Double.valueOf(depositstring);
-                                            // Check the number is greater than zero, as you can't add negative numbers
-                                            if ( deposit > 0 ) {
-                                                // Create new balance adding the new value to deposit
-                                                Double newBalance = currentAccount.getBalance() + deposit;
-                                                // print the new balance
-                                                System.out.println("Setting new balance to " + newBalance);
-                                                // update the list with the account selected with the new balance
-                                                customerData.get(accountselected).set(4, String.valueOf(newBalance));
-                                            } else {
-                                                // if the number to deposit is not larger than zero give an error
-                                                System.out.println("Number needs to be more than zero");
+                                // Create an account object with the current account selected
+                                Account currentAccount = new Account(customerData.get(accountselected));
+                                // print the current account balance
+                                System.out.println("Current balance: $" + currentAccount.getBalance());
+                                // Doing a deposit or withdraw
+                                System.out.println("(D)eposit or (W)ithdraw?");
+                                if (linescanner.hasNextLine()){
+                                    // get a single character entered, make it upper case and take the first character
+                                    char depositorwithdraw = linescanner.nextLine().toUpperCase().charAt(0);
+    
+    
+                                    if (depositorwithdraw == 'D'){
+                                        System.out.println("how much do u want to deposit?");
+                                        if (linescanner.hasNextLine()){
+                                            String depositstring = linescanner.nextLine();
+                                            try {
+                                                // Convert the deposit number an integer, if it fails then because it is in a try, catch, the catch will be used
+                                                Double deposit = Double.valueOf(depositstring);
+                                                // Check the number is greater than zero, as you can't add negative numbers
+                                                if ( deposit > 0 ) {
+                                                    // Create new balance adding the new value to deposit
+                                                    Double newBalance = currentAccount.getBalance() + deposit;
+                                                    // print the new balance
+                                                    System.out.println("Setting new balance to " + newBalance);
+                                                    // update the list with the account selected with the new balance
+                                                    customerData.get(accountselected).set(4, String.valueOf(newBalance));
+                                                } else {
+                                                    // if the number to deposit is not larger than zero give an error
+                                                    System.out.println("Number needs to be more than zero");
+                                                }
+                                            } catch (NumberFormatException e) {
+                                                // if it isn't a number give an error
+                                                System.out.println("invalid number entered");
                                             }
-                                        } catch (NumberFormatException e) {
-                                            // if it isn't a number give an error
-                                            System.out.println("invalid number entered");
                                         }
-                                    }
-                                } else if (depositorwithdraw == 'W') {
-                                    System.out.println("how much do u want to withdraw?");
-                                    if (linescanner.hasNextLine()){
-                                        String withdrawstring = linescanner.nextLine();
-                                        try {
-                                            // Convert the withdraw number to an integer, if it fails then because it is in a try, catch, the catch will be used
-                                            Double withdraw = Double.valueOf(withdrawstring);
-                                            // number to withdraw needs to be larger than 0
-                                            if ( withdraw > 0 ) {
-                                               
-                                                Double newBalance = currentAccount.getBalance() - withdraw;
-                                               
-                                                // loop through all the account types to find the current account type being used.
-                                                for (int accounttype = 0; accounttype < bankData.size(); accounttype++) {
-                                                    // https://www.w3schools.com/java/ref_string_equals.asp java string equals
-                                                    // Check the bank data account type to make sure it matches the account type
-                                                    if (bankData.get(accounttype).get(0).toUpperCase().equals(currentAccount.getAccountType().toUpperCase())) {
-                                                        // create an int for the new account minimum
-                                                        int accountTypeMin = Integer.valueOf(bankData.get(accounttype).get(1));
-                                                        // if the new balance is larger than the account supported minimum then update to the new balance
-                                                        if ( newBalance > accountTypeMin) {
-                                                            // print new balance
-                                                            System.out.println("Setting new balance to " + newBalance);
-                                                            customerData.get(accountselected).set(4, String.valueOf(newBalance));
-                                                        } else {
-                                                            // if it is under the value then display an error and set the balance to zero.
-                                                            System.out.println("invalid new balance " + newBalance + " for " + currentAccount.getAccountType() + " needs to be more than " + (accountTypeMin));
+                                    } else if (depositorwithdraw == 'W') {
+                                        System.out.println("how much do u want to withdraw? ( u cannot withdraw over 5000 )");
+                                        if (linescanner.hasNextLine()){
+                                            String withdrawstring = linescanner.nextLine();
+                                            try {
+                                                // Convert the withdraw number to an integer, if it fails then because it is in a try, catch, the catch will be used
+                                                Double withdraw = Double.valueOf(withdrawstring);
+                                                // number to withdraw needs to be larger than 0
+                                                if ( withdraw > 0 && withdraw < 5000 ) {
+                                                   
+                                                    Double newBalance = currentAccount.getBalance() - withdraw;
+                                                   
+                                                    // loop through all the account types to find the current account type being used.
+                                                    for (int accounttype = 0; accounttype < bankData.size(); accounttype++) {
+                                                        // https://www.w3schools.com/java/ref_string_equals.asp java string equals
+                                                        // Check the bank data account type to make sure it matches the account type
+                                                        if (bankData.get(accounttype).get(0).toUpperCase().equals(currentAccount.getAccountType().toUpperCase())) {
+                                                            // create an int for the new account minimum
+                                                            int accountTypeMin = Integer.valueOf(bankData.get(accounttype).get(1));
+                                                            // if the new balance is larger than the account supported minimum then update to the new balance
+                                                            if ( newBalance > accountTypeMin) {
+                                                                // print new balance
+                                                                System.out.println("Setting new balance to " + newBalance);
+                                                                customerData.get(accountselected).set(4, String.valueOf(newBalance));
+                                                            } else {
+                                                                // if it is under the value then display an error and set the balance to zero.
+                                                                System.out.println("invalid new balance " + newBalance + " for " + currentAccount.getAccountType() + " needs to be more than " + (accountTypeMin));
+                                                            }
                                                         }
                                                     }
+                                                } else {
+                                                    System.out.println("Number needs to be more than zero and less than 5000");
                                                 }
-                                            } else {
-                                                System.out.println("Number needs to be more than zero");
+                                            } catch (NumberFormatException e) {
+                                                System.out.println("invalid number entered");
                                             }
-                                        } catch (NumberFormatException e) {
-                                            System.out.println("invalid number entered");
-                                        }
-                                    }                                    
-       
-                                } else {
-                                    System.out.println("invalid option");
+                                        }                                    
+           
+                                    } else {
+                                        System.out.println("invalid option");
+                                    }
+                                }
+                                else{
+                                    System.out.println("invalid number");
                                 }
                             }
                         } catch (NumberFormatException e) {
@@ -333,21 +351,21 @@ public class main
                        
                     }
                 }
-                if (input == '6'){
+                if (input == '5'){
                     System.out.println("End of day!");
                     try{
-                        FileWriter writeCustomerData = new FileWriter(customerDataFilename);
-                        for (int i = 0; i < customerData.size(); i++) {
-                            List<String> row = customerData.get(i);
-                            writeCustomerData.write(String.join(",", row) + "\n");
-                            System.out.println("Customer Data: " + String.join(",", row));
+                        FileWriter writeCustomerData = new FileWriter(customerDataFilename); //making a file writing object called writeCustomerData and writing a file called customerDataFilename
+                        for (int i = 0; i < customerData.size(); i++) { //loop through the customer data list ( stuff from user input /memory) to write to the file
+                            List<String> row = customerData.get(i); //get the current row of customer data 2d array
+                            writeCustomerData.write(String.join(",", row) + "\n"); // write the csv with commas in between
+                            System.out.println("Customer Data: " + String.join(",", row)); //printing each line of data before closing program
                         }
                         writeCustomerData.close();
-                    } catch (IOException e) {
+                    } catch (IOException e) {//if errors happen catch it
                         System.out.println("error when writing customer data");
                     }
                     System.out.println("customer data saved");
-                    processing = false;
+                    processing = false;//turn off processing
                 }
             }
         }
